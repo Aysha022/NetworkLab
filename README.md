@@ -4,4 +4,6 @@
 - TCP_MULTICHAT - multiple client chat using TCP
 - TCP_APPLICATION - capitalize the first letter of each word sent by the client
 - UDP_APPLICATION - check whether the number sent by the client is prime or composite; if composite print its factors
+- DVR - distance vector routing algorithm
+- LSR - link state routing algorithm
   
