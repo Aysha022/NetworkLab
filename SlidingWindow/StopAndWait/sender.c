@@ -23,13 +23,13 @@ int main(){
 	
 	bzero(buffer,MAX);
 	
-	if((connect(sockfd,(SA*)& server,sizeof(server)))==0)
+	if((connect(sockfd,(SA*)&server,sizeof(server)))==0)
           printf("Connected with server..\n");
 	printf("Enter the no of message:");
 	while((buffer[n++]=getchar())!='\n');	
 	write(sockfd,buffer,MAX);
-	int no= atoi(buffer);
-	int i =0;
+	int no = atoi(buffer);
+	int i = 0;
 	while(1){
                 bzero(buffer,MAX);	
 		printf("Enter the data: ");
