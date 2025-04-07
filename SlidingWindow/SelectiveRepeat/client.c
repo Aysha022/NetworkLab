@@ -8,27 +8,27 @@
 
 // Simulate message corruption randomly
 int is_corrupt() {
-    return rand() % 3 == 0; // 25% chance to corrupt
+    return rand() % 3 == 0; // 33% chance to corrupt
 }
 
 int main() {
     srand(time(0)); // Seed random number generator
 
-    int sock = socket(AF_INET, SOCK_STREAM, 0);
+    int sockfd = socket(AF_INET, SOCK_STREAM, 0);
     struct sockaddr_in server = {0};
 
     server.sin_family = AF_INET;
     server.sin_port = htons(9009);
     server.sin_addr.s_addr = htonl(INADDR_ANY);
 
-    connect(sock, (struct sockaddr*)&server, sizeof(server));
+    connect(sockfd,(struct sockaddr*)&server, sizeof(server));
     printf("Client started...\n");
 
     char buff[50];
 
     while (1) {
         bzero(buff, sizeof(buff));
-        int n = read(sock, buff, sizeof(buff));
+        int n = read(sockfd, buff, sizeof(buff));
         if (n <= 0) break;
 
         printf("Received: %s\n", buff);
@@ -43,10 +43,10 @@ int main() {
             printf("Message OK... Sending: %s\n", ack);
         }
 
-        write(sock, ack, sizeof(ack));
+        write(sockfd, ack, sizeof(ack));
     }
 
     printf("Client exiting...\n");
-    close(sock);
+    close(sockfd);
     return 0;
 }
