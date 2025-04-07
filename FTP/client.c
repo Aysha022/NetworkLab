@@ -6,7 +6,7 @@
 #include <arpa/inet.h>
 
 #define MAX 80
-#define PORT 8080
+#define PORT 8900
 #define SA struct sockaddr
 #define SAI struct sockaddr_in
 
@@ -15,7 +15,11 @@ void send_file(int sockfd){
   char data[MAX] = {0};
 
   FILE *fp;
-  char *filename = "send.txt";
+  char filename[50];
+
+  printf("Enter the filename : ");
+  scanf("%s",filename);
+
   fp = fopen(filename,"r");
 
   while(fgets(data, MAX, fp) != NULL) {
@@ -27,13 +31,16 @@ void send_file(int sockfd){
 int main(){
     SAI server;
     int sockfd;
+
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     printf("Socket successfully created..\n");
+
     bzero(&server, sizeof(server));
     server.sin_family = AF_INET;
     server.sin_addr.s_addr = htonl(INADDR_ANY);
     server.sin_port = htons(PORT);
-    if (connect(sockfd, (SA*)&server, sizeof(server)) == 0) 
+
+    if (connect(sockfd, (SA*)&server, sizeof(server)) == 0)
         printf("connected to the server..\n");
 
     send_file(sockfd);
