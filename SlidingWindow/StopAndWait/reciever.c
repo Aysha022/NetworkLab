@@ -20,32 +20,32 @@ int main()
 	
 	serv_addr.sin_family = AF_INET;
 	serv_addr.sin_port = htons(PORT);
-	serv_addr.sin_addr.s_addr =INADDR_ANY;
+	serv_addr.sin_addr.s_addr = INADDR_ANY;
 	
 	bind(sockfd,(SA*)&server,sizeof(server));
 	
 	listen(sockfd,5);
 	len = sizeof(client);
-        connfd=accept(sockfd,(SA*)&client,(socklen_t*)&len);
+        connfd =  accept(sockfd,(SA*)&client,(socklen_t*)&len);
 	
 	bzero(buffer,MAX);
 	read(connfd,buffer,MAX);
 	printf("The no is recived..!\n");
-	int no= atoi(buffer);
-	int i=0;
+	int no = atoi(buffer);
+	int i = 0;
 	while(1){
                 bzero(buffer,MAX);
 		read(connfd,buffer,MAX);
 		printf("the message is : %s\n",buffer);
-		if((strcmp("3",buffer)==0) || (strcmp("5",buffer)==0)){
-			if(count==0){
+		if((strcmp("3",buffer) == 0) || (strcmp("5",buffer) == 0)){
+			if(count == 0){
 				sleep(3);
 				write(connfd,buffer2,MAX);
 				printf("the ACKNOWLEDGEMENT SEND IS : %s\n",buffer2);
-				count=1;
+				count = 1;
 			}else{
 				i++;
-				count=0;
+				count = 0;
 				write(connfd,buffer1,MAX);
 				printf("the ACKNOWLEDGEMENT SEND IS : %s\n",buffer1);
 			}
