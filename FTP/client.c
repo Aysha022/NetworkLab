@@ -24,7 +24,7 @@ void send_file(int sockfd){
 
   while(fgets(data, MAX, fp) != NULL) {
     send(sockfd, data, sizeof(data), 0);
-    bzero(data, MAX);
+   // bzero(data, MAX);
   }
 }
 
